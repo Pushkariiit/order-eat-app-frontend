@@ -3,14 +3,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import DetailsSection from "./DetailsSection";
-import { Separator } from "@radix-ui/react-separator";
+import { Separator } from "@/components/ui/separator";
 import CuisinesSection from "./CuisinesSection";
 import MenuSection from "./MenuSection";
 import ImageSection from "./ImageSection";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
 import { Restaurant } from "@/types";
+import { useEffect } from "react";
 
 const formSchema = z
   .object({
@@ -42,7 +42,8 @@ const formSchema = z
     ),
     imageUrl: z.string().optional(),
     imageFile: z.instanceof(File, { message: "image is required" }).optional(),
-  }).refine((data) => data.imageUrl || data.imageFile, {
+  })
+  .refine((data) => data.imageUrl || data.imageFile, {
     message: "Either image URL or image File must be provided",
     path: ["imageFile"],
   });
@@ -68,6 +69,8 @@ const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
     if (!restaurant) {
       return;
     }
+
+    // price lowest domination of 100 = 100pence == 1GBP
     const deliveryPriceFormatted = parseInt(
       (restaurant.deliveryPrice / 100).toFixed(2)
     );
