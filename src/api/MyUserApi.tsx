@@ -1,4 +1,3 @@
-import { Toaster } from "@/components/ui/sonner";
 import { User } from "@/types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "react-query";
